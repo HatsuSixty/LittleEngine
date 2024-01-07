@@ -36,7 +36,10 @@ void Box::update(ObjectManager* objmgr)
 
 Rectangle Box::getCollisionRectangle()
 {
-    return rec;
+    Rectangle coll = rec;
+    coll.y += coll.height/2;
+    coll.height /= 2;
+    return coll;
 }
 
 int main()
@@ -50,6 +53,7 @@ int main()
     objectManager.addObject(&box2);
 
     InitWindow(WIDTH, HEIGHT, "Little Escondido");
+    SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
         BeginDrawing();

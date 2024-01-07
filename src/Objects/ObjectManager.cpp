@@ -5,7 +5,20 @@
 
 void ObjectManager::update()
 {
+    std::vector<Object*> update_stack;
     for (auto o : objects) {
+        if (update_stack.empty()) {
+            update_stack.push_back(o);
+            continue;
+        }
+        if (o->getCollisionRectangle().y < update_stack.back()->getCollisionRectangle().y) {
+            update_stack.insert(update_stack.begin(), o);
+        } else {
+            update_stack.push_back(o);
+        }
+    }
+
+    for (auto o : update_stack) {
         o->update(this);
     }
 }

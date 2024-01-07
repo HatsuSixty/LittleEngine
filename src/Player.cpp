@@ -33,7 +33,10 @@ void Player::update(ObjectManager* objmgr)
 
 Rectangle Player::getCollisionRectangle()
 {
-    return rec;
+    Rectangle coll = rec;
+    coll.y += coll.height/2;
+    coll.height /= 2;
+    return coll;
 }
 
 void Player::move(Vector2 direction)
