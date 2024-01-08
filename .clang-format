@@ -20,3 +20,4 @@ BreakConstructorInitializers: BeforeComma
 IndentPPDirectives: AfterHash
 RequiresExpressionIndentation: OuterScope
 SpaceAfterTemplateKeyword: false
+ColumnLimit: 80

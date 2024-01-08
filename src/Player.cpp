@@ -39,6 +39,11 @@ Rectangle Player::getCollisionRectangle()
     return coll;
 }
 
+Rectangle Player::getActualRectangle()
+{
+    return rec;
+}
+
 void Player::move(Vector2 direction)
 {
     rec.x += direction.x * PLAYER_SPEED * GetFrameTime();

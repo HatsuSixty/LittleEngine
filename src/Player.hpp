@@ -13,6 +13,7 @@ public:
     Player(Vector2 position);
     void update(ObjectManager* objmgr) override;
     Rectangle getCollisionRectangle() override;
+    Rectangle getActualRectangle() override;
 
     void move(Vector2 direction);
 };

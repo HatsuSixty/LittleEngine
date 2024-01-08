@@ -1,5 +1,7 @@
 #include "Object.hpp"
 
+#include <iostream>
+
 extern int objectIdTracker;
 
 Object::Object()
@@ -11,4 +13,10 @@ Object::Object()
 int Object::getId()
 {
     return id;
+}
+
+void Object::printId(const char* file_name, int line)
+{
+    std::cout << file_name << ":" << line
+              << ": Object ID: " << getId() << "\n";
 }
