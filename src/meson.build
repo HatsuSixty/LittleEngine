@@ -5,6 +5,8 @@ executable(meson.project_name(), [
   'Box.cpp',
   'Objects/ObjectManager.cpp',
   'Objects/Object.cpp',
+  'Tiles/Tile.cpp',
+  'Tiles/Tileset.cpp',
 ], dependencies : [
   dependency('raylib'),
 ])
