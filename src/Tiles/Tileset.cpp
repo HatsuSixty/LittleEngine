@@ -1,15 +1,18 @@
 #include "Tileset.hpp"
 
 #include "Tile.hpp"
+#include <cassert>
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
 
-Tileset::Tileset(Tile* tiles, size_t count)
+Tileset::Tileset(Tile* tiles, int count, int length)
 {
-    this->tiles
-        = (Tile*)std::malloc(TILESET_WIDTH * TILESET_HEIGHT * sizeof(Tile));
-    std::memset(this->tiles, 0, TILESET_WIDTH * TILESET_HEIGHT * sizeof(Tile));
+    assert(length >= TILESET_WIDTH && "Invalid tilesed length");
+
+    this->tiles = (Tile*)std::malloc(length * TILESET_HEIGHT * sizeof(Tile));
+    this->length = length;
+    std::memset(this->tiles, 0, length * TILESET_HEIGHT * sizeof(Tile));
     std::memcpy(this->tiles, tiles, count * sizeof(Tile));
 }
 
@@ -17,11 +20,11 @@ Tileset::~Tileset() { std::free(tiles); }
 
 void Tileset::update()
 {
-    for (auto x = 0; x < TILESET_WIDTH; ++x) {
+    for (auto x = 0; x < length; ++x) {
         for (auto y = 0; y < TILESET_HEIGHT; ++y) {
             auto tileX = x * TILE_WIDTH;
             auto tileY = y * TILE_HEIGHT;
-            tiles[y * TILESET_WIDTH + x].render(tileX, tileY);
+            tiles[y * length + x].render(tileX, tileY);
         }
     }
 }

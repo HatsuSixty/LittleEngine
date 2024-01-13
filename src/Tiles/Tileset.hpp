@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Tile.hpp"
-#include <cstddef>
 
 class Tileset {
 private:
     Tile* tiles;
+    int length;
 
 public:
-    Tileset(Tile* tiles, size_t count);
+    Tileset(Tile* tiles, int count, int length);
     ~Tileset();
 
     void update();
