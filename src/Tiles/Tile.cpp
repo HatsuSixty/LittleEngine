@@ -8,16 +8,13 @@ Tile::Tile(Color color)
     isColor = true;
 }
 
-Tile::Tile(char const* filePath, int numX, int numY, int tileIndexX, int tileIndexY)
+Tile::Tile(char const* filePath, Vector2 tileCoordinates)
 {
     auto image = LoadImage(filePath);
     texture = LoadTextureFromImage(image);
     UnloadImage(image);
 
-    numTilesX = numX;
-    numTilesY = numY;
-    this->tileIndexX = tileIndexX;
-    this->tileIndexY = tileIndexY;
+    this->tileCoordinates = tileCoordinates;
 
     isColor = false;
 }
@@ -35,8 +32,8 @@ void Tile::render(int x, int y)
     } else {
         DrawTexturePro(texture,
                        Rectangle {
-                           .x = (float)tileIndexX*TILE_WIDTH,
-                           .y = (float)tileIndexY*TILE_HEIGHT,
+                           .x = (float)tileCoordinates.x*TILE_WIDTH,
+                           .y = (float)tileCoordinates.y*TILE_HEIGHT,
                            .width = (float)TILE_WIDTH,
                            .height = (float)TILE_HEIGHT,
                        },

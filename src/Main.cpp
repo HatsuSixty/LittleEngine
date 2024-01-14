@@ -1,7 +1,3 @@
-#include <cmath>
-#include <cstddef>
-#include <cstdlib>
-#include <cstring>
 #include <iostream>
 #include <raylib.h>
 
@@ -20,17 +16,17 @@ int main()
     SetTargetFPS(60);
 
     Tile tiles[] = {
-        Tile("./assets/test_tiles.png", 2, 2, 0, 0),
-        Tile("./assets/test_tiles.png", 2, 2, 0, 1),
-        Tile("./assets/test_tiles.png", 2, 2, 1, 0),
-        Tile("./assets/test_tiles.png", 2, 2, 1, 1),
+        Tile("./assets/test_tiles.png", V2(0, 0)),
+        Tile("./assets/test_tiles.png", V2(0, 1)),
+        Tile("./assets/test_tiles.png", V2(1, 0)),
+        Tile("./assets/test_tiles.png", V2(1, 1)),
         Tile(RED),
         Tile(GREEN),
         Tile(BLUE),
         Tile(GRAY),
         Tile(PINK),
         Tile(BLACK),
-        Tile("./assets/test_tiles.png", 2, 2, 1, 1),
+        Tile("./assets/test_tiles.png", V2(1, 1)),
         Tile(BLUE),
     };
     Tileset tileset(tiles, sizeof(tiles) / sizeof(tiles[0]),
