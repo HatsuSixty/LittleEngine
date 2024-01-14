@@ -20,14 +20,14 @@ int main()
         Tile("./assets/test_tiles.png", V2(0, 1), false),
         Tile("./assets/test_tiles.png", V2(1, 0), false),
         Tile("./assets/test_tiles.png", V2(1, 1), false),
-        Tile(RED,                                 false),
-        Tile(GREEN,                               false),
-        Tile(BLUE,                                false),
-        Tile(GRAY,                                 true),
-        Tile(PINK,                                false),
-        Tile(BLACK,                               false),
+        Tile(RED, false),
+        Tile(GREEN, false),
+        Tile(BLUE, false),
+        Tile(GRAY, true),
+        Tile(PINK, false),
+        Tile(BLACK, false),
         Tile("./assets/test_tiles.png", V2(1, 1), false),
-        Tile(BLUE,                                false),
+        Tile(BLUE, false),
     };
     Tileset tileset(tiles, sizeof(tiles) / sizeof(tiles[0]),
                     MINIMUM_TILESET_WIDTH + 1, MINIMUM_TILESET_HEIGHT + 1);
@@ -36,7 +36,7 @@ int main()
 
     Player player(Vector2 { (float)WIDTH / 2 - (float)PLAYER_WIDTH / 2,
                             (float)HEIGHT / 2 - (float)PLAYER_HEIGHT / 2 });
-    Box testBoxA(Vector2 { 0, 0 }, &player);
+    Box testBoxA(Vector2 { 0, (float)HEIGHT / 2 }, &player);
     Box testBoxB(Vector2 { (float)WIDTH / 2 - 20, (float)HEIGHT / 2 + 50 },
                  &player);
 

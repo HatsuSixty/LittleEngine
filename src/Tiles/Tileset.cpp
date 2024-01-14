@@ -52,6 +52,13 @@ bool Tileset::collides(Object* obj)
             };
             if (CheckCollisionRecs(a, b))
                 return true;
+
+            auto tilesetDims = getDimensions();
+            auto objActualRec = obj->getActualRectangle();
+            if ((objActualRec.x + objActualRec.width > tilesetDims.x)
+                || (objActualRec.y + objActualRec.height > tilesetDims.y)
+                || (objActualRec.x < 0) || (objActualRec.y < 0))
+                return true;
         }
     }
     return false;
