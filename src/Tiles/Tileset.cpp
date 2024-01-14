@@ -28,3 +28,8 @@ void Tileset::update()
         }
     }
 }
+
+Vector2 Tileset::getDimensions()
+{
+    return Vector2 { length * TILE_WIDTH, TILESET_HEIGHT * TILE_HEIGHT };
+}

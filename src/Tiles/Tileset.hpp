@@ -12,4 +12,5 @@ public:
     ~Tileset();
 
     void update();
+    Vector2 getDimensions();
 };
