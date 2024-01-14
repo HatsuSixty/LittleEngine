@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Objects/Object.hpp"
 #include "Tile.hpp"
 
 class Tileset {
@@ -14,4 +15,5 @@ public:
 
     void update();
     Vector2 getDimensions();
+    bool collides(Object* obj);
 };

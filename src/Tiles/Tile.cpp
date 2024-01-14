@@ -2,13 +2,14 @@
 
 #include <raylib.h>
 
-Tile::Tile(Color color)
+Tile::Tile(Color color, bool collides)
 {
     tileColor = color;
     isColor = true;
+    this->collides = collides;
 }
 
-Tile::Tile(char const* filePath, Vector2 tileCoordinates)
+Tile::Tile(char const* filePath, Vector2 tileCoordinates, bool collides)
 {
     auto image = LoadImage(filePath);
     texture = LoadTextureFromImage(image);
@@ -16,6 +17,7 @@ Tile::Tile(char const* filePath, Vector2 tileCoordinates)
 
     this->tileCoordinates = tileCoordinates;
 
+    this->collides = collides;
     isColor = false;
 }
 

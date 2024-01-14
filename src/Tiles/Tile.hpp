@@ -16,10 +16,11 @@ private:
 
     bool isColor;
     Color tileColor;
-
 public:
-    Tile(Color color);
-    Tile(char const* filePath, Vector2 tileCoordinates);
+    bool collides;
+
+    Tile(Color color, bool collides);
+    Tile(char const* filePath, Vector2 tileCoordinates, bool collides);
     ~Tile();
 
     void render(int x, int y);

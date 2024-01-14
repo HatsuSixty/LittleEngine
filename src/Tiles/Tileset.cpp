@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
+#include <raylib.h>
 
 Tileset::Tileset(Tile* tiles, int count, int width, int height)
 {
@@ -34,4 +35,24 @@ void Tileset::update()
 Vector2 Tileset::getDimensions()
 {
     return Vector2 { width * TILE_WIDTH, height * TILE_HEIGHT };
+}
+
+bool Tileset::collides(Object* obj)
+{
+    for (auto x = 0; x < width; ++x) {
+        for (auto y = 0; y < height; ++y) {
+            if (!tiles[y * width + x].collides)
+                continue;
+            Rectangle a = obj->getCollisionRectangle();
+            Rectangle b = {
+                .x = x * TILE_WIDTH,
+                .y = y * TILE_HEIGHT,
+                .width = TILE_WIDTH,
+                .height = TILE_HEIGHT,
+            };
+            if (CheckCollisionRecs(a, b))
+                return true;
+        }
+    }
+    return false;
 }
