@@ -1,6 +1,6 @@
-#include "Object.hpp"
+#include "LittleEngine/Objects/Object.hpp"
 
-#include "ObjectManager.hpp"
+#include "LittleEngine/Objects/ObjectManager.hpp"
 #include <raylib.h>
 
 ObjectManager::ObjectManager(Tileset* tileset) { this->tileset = tileset; }

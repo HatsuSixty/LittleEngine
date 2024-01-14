@@ -1,6 +1,6 @@
-#include "Tileset.hpp"
+#include "LittleEngine/Tiles/Tileset.hpp"
 
-#include "Tile.hpp"
+#include "LittleEngine/Tiles/Tile.hpp"
 #include <cassert>
 #include <cstddef>
 #include <cstdlib>

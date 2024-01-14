@@ -11,3 +11,7 @@ if [ -d "$1/build" ]; then
     echo "Removing build folder..."
     rm -rf $1/build
 fi
+if [ -d "$1/.cache" ]; then
+    echo "Removing .cache folder..."
+    rm -rf $1/.cache
+fi
