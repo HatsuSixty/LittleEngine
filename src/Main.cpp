@@ -33,7 +33,8 @@ int main()
         Tile("./assets/test_tiles.png", 2, 2, 1, 1),
         Tile(BLUE),
     };
-    Tileset tileset(tiles, sizeof(tiles) / sizeof(tiles[0]), TILESET_WIDTH + 1);
+    Tileset tileset(tiles, sizeof(tiles) / sizeof(tiles[0]),
+                    MINIMUM_TILESET_WIDTH + 1, MINIMUM_TILESET_HEIGHT + 1);
 
     ObjectManager objectManager;
 

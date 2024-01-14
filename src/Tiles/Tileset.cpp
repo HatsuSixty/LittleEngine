@@ -6,13 +6,15 @@
 #include <cstdlib>
 #include <cstring>
 
-Tileset::Tileset(Tile* tiles, int count, int length)
+Tileset::Tileset(Tile* tiles, int count, int width, int height)
 {
-    assert(length >= TILESET_WIDTH && "Invalid tilesed length");
+    assert(width >= MINIMUM_TILESET_WIDTH && "Invalid tileset width");
+    assert(width >= MINIMUM_TILESET_HEIGHT && "Invalid tileset width");
 
-    this->tiles = (Tile*)std::malloc(length * TILESET_HEIGHT * sizeof(Tile));
-    this->length = length;
-    std::memset(this->tiles, 0, length * TILESET_HEIGHT * sizeof(Tile));
+    this->tiles = (Tile*)std::malloc(width * height * sizeof(Tile));
+    this->width = width;
+    this->height = height;
+    std::memset(this->tiles, 0, width * height * sizeof(Tile));
     std::memcpy(this->tiles, tiles, count * sizeof(Tile));
 }
 
@@ -20,16 +22,16 @@ Tileset::~Tileset() { std::free(tiles); }
 
 void Tileset::update()
 {
-    for (auto x = 0; x < length; ++x) {
-        for (auto y = 0; y < TILESET_HEIGHT; ++y) {
+    for (auto x = 0; x < width; ++x) {
+        for (auto y = 0; y < height; ++y) {
             auto tileX = x * TILE_WIDTH;
             auto tileY = y * TILE_HEIGHT;
-            tiles[y * length + x].render(tileX, tileY);
+            tiles[y * width + x].render(tileX, tileY);
         }
     }
 }
 
 Vector2 Tileset::getDimensions()
 {
-    return Vector2 { length * TILE_WIDTH, TILESET_HEIGHT * TILE_HEIGHT };
+    return Vector2 { width * TILE_WIDTH, height * TILE_HEIGHT };
 }

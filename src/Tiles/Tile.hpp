@@ -3,10 +3,10 @@
 #include <raylib.h>
 #include "../Consts.hpp"
 
-#define TILESET_WIDTH 10
-#define TILESET_HEIGHT 10
-#define TILE_WIDTH ((float)WIDTH / TILESET_WIDTH)
-#define TILE_HEIGHT ((float)HEIGHT / TILESET_HEIGHT)
+#define MINIMUM_TILESET_WIDTH 10
+#define MINIMUM_TILESET_HEIGHT 10
+#define TILE_WIDTH ((float)WIDTH / MINIMUM_TILESET_WIDTH)
+#define TILE_HEIGHT ((float)HEIGHT / MINIMUM_TILESET_HEIGHT)
 
 class Tile {
 private:

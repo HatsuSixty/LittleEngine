@@ -5,10 +5,11 @@
 class Tileset {
 private:
     Tile* tiles;
-    int length;
+    int width;
+    int height;
 
 public:
-    Tileset(Tile* tiles, int count, int length);
+    Tileset(Tile* tiles, int count, int width, int height);
     ~Tileset();
 
     void update();
