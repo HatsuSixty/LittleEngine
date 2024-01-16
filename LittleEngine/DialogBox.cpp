@@ -32,7 +32,7 @@ void DialogBox::start(char const* dialogs[], int numDialogs, char const* image)
 void DialogBox::update()
 {
     if (isInUse) {
-        if ((timeSinceLastChar >= 0.1 || currentCharacterInDialog == 0)
+        if ((timeSinceLastChar >= 0.05 || currentCharacterInDialog == 0)
             && (currentCharacterInDialog
                 != (int)(strlen(dialogs[currentDialog])))) {
             inProgressDialog.push_back(
