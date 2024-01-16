@@ -7,6 +7,7 @@ littleengine = library('LittleEngine', [
   'Tiles/Tileset.cpp',
   'DialogBox.cpp',
   'Main.cpp',
+  'Theming.cpp',
   'Util.cpp',
 ], include_directories : [
   littleengine_include_dir,

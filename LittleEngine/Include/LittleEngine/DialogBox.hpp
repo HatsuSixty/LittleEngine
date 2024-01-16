@@ -1,14 +1,18 @@
 #pragma once
 
+#include <raylib.h>
 #include <string>
+
+#define DIALOGBOX_IMAGE_WIDTH  50
+#define DIALOGBOX_IMAGE_HEIGHT 50
 
 class DialogBox {
 private:
     bool isInUse = false;
 
     char const** dialogs;
-    char const* image;
     int numDialogs;
+    Texture texture;
 
     std::string inProgressDialog;
     double timeSinceLastChar = 0;
