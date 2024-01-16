@@ -5,7 +5,7 @@
 #include <raylib.h>
 
 #include "LittleEngine/Consts.hpp"
-#include "LittleEngine/Theming.hpp"
+#include "LittleEngine/Settings.hpp"
 
 #define DIALOGBOX_INNER_PADDING 10
 #define DIALOGBOX_PADDING 40
@@ -51,7 +51,7 @@ void DialogBox::update()
             .width = WIDTH - DIALOGBOX_PADDING * 2,
             .height = DIALOGBOX_HEIGHT,
         };
-        DrawRectangleRec(rect, GetColor(Theming::darkColor));
+        DrawRectangleRec(rect, GetColor(Settings::darkColor));
 
         auto borderRect = rect;
         borderRect.x -= DIALOGBOX_BORDER_THICKNESS;
@@ -59,14 +59,14 @@ void DialogBox::update()
         borderRect.width += DIALOGBOX_BORDER_THICKNESS * 2;
         borderRect.height += DIALOGBOX_BORDER_THICKNESS * 2;
         DrawRectangleLinesEx(borderRect, DIALOGBOX_BORDER_THICKNESS,
-                             GetColor(Theming::brightColor));
+                             GetColor(Settings::brightColor));
 
         auto borderRect2 = borderRect;
         borderRect2.x -= 2;
         borderRect2.y -= 2;
         borderRect2.width += 2 * 2;
         borderRect2.height += 2 * 2;
-        DrawRectangleLinesEx(borderRect2, 2, GetColor(Theming::darkColor));
+        DrawRectangleLinesEx(borderRect2, 2, GetColor(Settings::darkColor));
 
         // End drawing borders
 
@@ -91,7 +91,7 @@ void DialogBox::update()
                  rect.y + DIALOGBOX_INNER_PADDING, 20, GetColor(0xFFD0EDFF));
 
         if (currentCharacterInDialog >= (int)strlen(dialogs[currentDialog])
-            && IsKeyPressed(KEY_ENTER)) {
+            && IsKeyPressed(Settings::nextDialogKey)) {
             currentDialog += 1;
             currentCharacterInDialog = 0;
             inProgressDialog.clear();
