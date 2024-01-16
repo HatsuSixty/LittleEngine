@@ -1,10 +1,11 @@
 littleengine_include_dir = include_directories('Include')
 
 littleengine = library('LittleEngine', [
-  'Objects/ObjectManager.cpp',
   'Objects/Object.cpp',
+  'Objects/ObjectManager.cpp',
   'Tiles/Tile.cpp',
   'Tiles/Tileset.cpp',
+  'DialogBox.cpp',
   'Main.cpp',
   'Util.cpp',
 ], include_directories : [

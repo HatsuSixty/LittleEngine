@@ -4,6 +4,7 @@
 #include <raylib.h>
 
 #include "LittleEngine/Consts.hpp"
+#include "LittleEngine/DialogBox.hpp"
 #include "LittleEngine/Objects/Object.hpp"
 #include "LittleEngine/Objects/ObjectManager.hpp"
 #include "LittleEngine/Tiles/Tile.hpp"
@@ -65,9 +66,10 @@ class Box : public Object {
 private:
     Rectangle rec;
     Player* player;
+    DialogBox* dialogBox;
 
 public:
-    Box(Vector2 position, Player* player)
+    Box(Vector2 position, Player* player, DialogBox* dialogBox)
     {
         rec = Rectangle {
             .x = position.x,
@@ -76,6 +78,7 @@ public:
             .height = 40,
         };
         this->player = player;
+        this->dialogBox = dialogBox;
     }
 
     void update(ObjectManager* objmgr) override
@@ -84,7 +87,10 @@ public:
         if (CheckCollisionRecs(getActualRectangle(),
                                player->getActualRectangle())
             && IsKeyPressed(KEY_ENTER)) {
-            std::cout << "Nice!\n";
+            char const* dialogs[]
+                = { "the quick brown fox jumps over the lazy dog",
+                    "god yzal eht revo spmuj xof nworb kciuq eht" };
+            dialogBox->start(dialogs, sizeof(dialogs)/sizeof(dialogs[0]));
         }
         DrawRectangleRec(rec, YELLOW);
     }
@@ -104,6 +110,8 @@ int main()
 {
     InitWindow(WIDTH, HEIGHT, "Little Escondido");
     SetTargetFPS(60);
+
+    DialogBox dialogBox;
 
     Tile tiles[] = {
         Tile("./Assets/test_tiles.png", V2(0, 0), false),
@@ -129,9 +137,9 @@ int main()
 
     Player player(Vector2 { (float)WIDTH / 2 - (float)PLAYER_WIDTH / 2,
                             (float)HEIGHT / 2 - (float)PLAYER_HEIGHT / 2 });
-    Box testBoxA(Vector2 { 0, (float)HEIGHT / 2 }, &player);
+    Box testBoxA(Vector2 { 0, (float)HEIGHT / 2 }, &player, &dialogBox);
     Box testBoxB(Vector2 { (float)WIDTH / 2 - 20, (float)HEIGHT / 2 + 50 },
-                 &player);
+                 &player, &dialogBox);
 
     objectManager.addObject(&player);
     objectManager.addObject(&testBoxA);
@@ -155,10 +163,11 @@ int main()
 
     while (!WindowShouldClose()) {
         BeginDrawing();
-        BeginMode2D(camera);
         ClearBackground(WHITE);
 
-        /* Update objects and tiles */
+        BeginMode2D(camera);
+
+        /* Update objects, tiles, and dialogs */
         tileset.update();
         objectManager.update();
 
@@ -179,6 +188,9 @@ int main()
         }
 
         EndMode2D();
+
+        dialogBox.update();
+
         EndDrawing();
     }
 
