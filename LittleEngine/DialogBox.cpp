@@ -94,7 +94,7 @@ void DialogBox::update()
 
         DrawText(inProgressDialog.c_str(),
                  rect.x + DIALOGBOX_IMAGE_WIDTH + DIALOGBOX_INNER_PADDING * 2,
-                 rect.y + DIALOGBOX_INNER_PADDING, 20, GetColor(0xFFD0EDFF));
+                 rect.y + DIALOGBOX_INNER_PADDING, 20, GetColor(Settings::brightColor));
 
         if (currentCharacterInDialog >= (int)strlen(dialogs[currentDialog])
             && IsKeyPressed(Settings::interactionKey)) {
