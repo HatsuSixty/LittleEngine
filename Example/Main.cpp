@@ -160,7 +160,6 @@ int main()
         .rotation = 0.0f,
         .zoom = 1.0f,
     };
-    Vector2 cameraTarget;
 
     while (!WindowShouldClose()) {
         BeginDrawing();
@@ -171,22 +170,7 @@ int main()
         /* Update objects, tiles, and dialogs */
         tileset.update();
         objectManager.update();
-
-        /* Update camera */
-        camera.target = cameraTarget;
-
-        auto playerRec = player.getActualRectangle();
-        auto tilesetDims = tileset.getDimensions();
-        if (((playerRec.x - camera.offset.x) >= 0)
-            && ((playerRec.x + playerRec.width + camera.offset.x)
-                <= tilesetDims.x)) {
-            cameraTarget.x = playerRec.x;
-        }
-        if (((playerRec.y - camera.offset.y) >= 0)
-            && ((playerRec.y + playerRec.height + camera.offset.y)
-                <= tilesetDims.y)) {
-            cameraTarget.y = playerRec.y;
-        }
+        scrollCameraWithPlayer(&camera, &player, &tileset);
 
         EndMode2D();
 
