@@ -31,6 +31,7 @@ void DialogBox::start(char const* dialogs[], int numDialogs, char const* image)
     UnloadImage(img);
 
     this->numDialogs = numDialogs;
+    this->font = LoadFont(Settings::defaultFont.c_str());
 }
 
 void DialogBox::update()
@@ -92,9 +93,14 @@ void DialogBox::update()
             },
             Vector2 { 0, 0 }, 0.0f, WHITE);
 
-        DrawText(inProgressDialog.c_str(),
-                 rect.x + DIALOGBOX_IMAGE_WIDTH + DIALOGBOX_INNER_PADDING * 2,
-                 rect.y + DIALOGBOX_INNER_PADDING, 20, GetColor(Settings::brightColor));
+        auto fontSize = 20.0f;
+        DrawTextEx(
+            font, inProgressDialog.c_str(),
+            Vector2 {
+                rect.x + DIALOGBOX_IMAGE_WIDTH + DIALOGBOX_INNER_PADDING * 2,
+                rect.y + DIALOGBOX_INNER_PADDING,
+            },
+            fontSize, fontSize / 10, GetColor(Settings::brightColor));
 
         if (currentCharacterInDialog >= (int)strlen(dialogs[currentDialog])
             && IsKeyPressed(Settings::interactionKey)) {
@@ -108,6 +114,7 @@ void DialogBox::update()
             isInUse = false;
             std::free(this->dialogs);
             UnloadTexture(this->texture);
+            UnloadFont(this->font);
         }
     }
 }

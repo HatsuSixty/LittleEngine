@@ -11,6 +11,7 @@ KeyboardKey Settings::moveUpKey = KEY_UP;
 std::string Settings::defaultDialogImage = "./Assets/default_dialog_image.png";
 unsigned int Settings::brightColor = 0xFFD0EDFF;
 unsigned int Settings::darkColor = 0x140810FF;
+std::string Settings::defaultFont = "./Assets/Retro Gaming.ttf";
 
 void Settings::setInteractionKey(KeyboardKey key) { interactionKey = key; }
 void Settings::setMoveDownKey(KeyboardKey key) { moveDownKey = key; }
@@ -23,3 +24,4 @@ void Settings::setDefaultDialogImage(std::string image)
 }
 void Settings::setBrightColor(unsigned int color) { brightColor = color; }
 void Settings::setDarkColor(unsigned int color) { darkColor = color; }
+void Settings::setDefaultFont(std::string font) { defaultFont = font; }

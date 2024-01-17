@@ -89,8 +89,8 @@ public:
                                player->getActualRectangle())
             && IsKeyPressed(Settings::interactionKey)) {
             char const* dialogs[]
-                = { "the quick brown fox jumps over the lazy dog",
-                    "god yzal eht revo spmuj xof nworb kciuq eht" };
+                = { "the quick brown fox jumps over the lazy\ndog",
+                    "god yzal eht revo spmuj xof nworb kciuq\neht" };
             dialogBox->start(dialogs, sizeof(dialogs) / sizeof(dialogs[0]));
         }
         DrawRectangleRec(rec, YELLOW);

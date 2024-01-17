@@ -13,6 +13,7 @@ extern KeyboardKey moveUpKey;
 extern std::string defaultDialogImage;
 extern unsigned int brightColor;
 extern unsigned int darkColor;
+extern std::string defaultFont;
 
 void setInteractionKey(KeyboardKey key);
 void setMoveDownKey(KeyboardKey key);
@@ -22,5 +23,6 @@ void setMoveUpKey(KeyboardKey key);
 void setDefaultDialogImage(std::string image);
 void setBrightColor(unsigned int color);
 void setDarkColor(unsigned int color);
+void setDefaultFont(std::string font);
 
 }

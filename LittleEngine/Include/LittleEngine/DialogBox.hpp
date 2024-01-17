@@ -13,6 +13,7 @@ private:
     char const** dialogs;
     int numDialogs;
     Texture texture;
+    Font font;
 
     std::string inProgressDialog;
     double timeSinceLastChar = 0;
