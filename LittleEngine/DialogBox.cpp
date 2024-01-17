@@ -91,7 +91,7 @@ void DialogBox::update()
                  rect.y + DIALOGBOX_INNER_PADDING, 20, GetColor(0xFFD0EDFF));
 
         if (currentCharacterInDialog >= (int)strlen(dialogs[currentDialog])
-            && IsKeyPressed(Settings::nextDialogKey)) {
+            && IsKeyPressed(Settings::interactionKey)) {
             currentDialog += 1;
             currentCharacterInDialog = 0;
             inProgressDialog.clear();

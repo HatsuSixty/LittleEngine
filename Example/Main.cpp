@@ -7,6 +7,7 @@
 #include "LittleEngine/DialogBox.hpp"
 #include "LittleEngine/Objects/Object.hpp"
 #include "LittleEngine/Objects/ObjectManager.hpp"
+#include "LittleEngine/Settings.hpp"
 #include "LittleEngine/Tiles/Tile.hpp"
 #include "LittleEngine/Tiles/Tileset.hpp"
 #include "LittleEngine/Util.hpp"
@@ -32,8 +33,8 @@ public:
     void update(ObjectManager* objmgr) override
     {
         auto direction = Vector2 {
-            .x = (float)(GetKeyStrength(KEY_RIGHT) - GetKeyStrength(KEY_LEFT)),
-            .y = (float)(GetKeyStrength(KEY_DOWN) - GetKeyStrength(KEY_UP)),
+            .x = (float)(GetKeyStrength(Settings::moveRightKey) - GetKeyStrength(Settings::moveLeftKey)),
+            .y = (float)(GetKeyStrength(Settings::moveDownKey) - GetKeyStrength(Settings::moveUpKey)),
         };
 
         move(direction);
@@ -86,11 +87,11 @@ public:
         (void)objmgr;
         if (CheckCollisionRecs(getActualRectangle(),
                                player->getActualRectangle())
-            && IsKeyPressed(KEY_ENTER)) {
+            && IsKeyPressed(Settings::interactionKey)) {
             char const* dialogs[]
                 = { "the quick brown fox jumps over the lazy dog",
                     "god yzal eht revo spmuj xof nworb kciuq eht" };
-            dialogBox->start(dialogs, sizeof(dialogs)/sizeof(dialogs[0]));
+            dialogBox->start(dialogs, sizeof(dialogs) / sizeof(dialogs[0]));
         }
         DrawRectangleRec(rec, YELLOW);
     }
