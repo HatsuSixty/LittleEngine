@@ -22,7 +22,11 @@ void DialogBox::start(char const* dialogs[], int numDialogs, char const* image)
     this->dialogs = (char const**)malloc(numDialogs * sizeof(char const**));
     std::memcpy(this->dialogs, dialogs, numDialogs * sizeof(char const**));
 
-    Image img = LoadImage(image);
+    Image img;
+    if (image != NULL)
+        img = LoadImage(image);
+    else
+        img = LoadImage(Settings::defaultDialogImage.c_str());
     this->texture = LoadTextureFromImage(img);
     UnloadImage(img);
 
@@ -71,20 +75,22 @@ void DialogBox::update()
         // End drawing borders
 
         // Draw image
-        DrawTexturePro(texture,
-                       Rectangle {
-                           .x = 0,
-                           .y = 0,
-                           .width = (float)texture.width,
-                           .height = (float)texture.height,
-                       },
-                       Rectangle {
-                           .x = rect.x + DIALOGBOX_INNER_PADDING,
-                           .y = rect.y + (rect.height / 2 - (float)DIALOGBOX_IMAGE_HEIGHT / 2),
-                           .width = DIALOGBOX_IMAGE_WIDTH,
-                           .height = DIALOGBOX_IMAGE_HEIGHT,
-                       },
-                       Vector2 { 0, 0 }, 0.0f, WHITE);
+        DrawTexturePro(
+            texture,
+            Rectangle {
+                .x = 0,
+                .y = 0,
+                .width = (float)texture.width,
+                .height = (float)texture.height,
+            },
+            Rectangle {
+                .x = rect.x + DIALOGBOX_INNER_PADDING,
+                .y = rect.y
+                    + (rect.height / 2 - (float)DIALOGBOX_IMAGE_HEIGHT / 2),
+                .width = DIALOGBOX_IMAGE_WIDTH,
+                .height = DIALOGBOX_IMAGE_HEIGHT,
+            },
+            Vector2 { 0, 0 }, 0.0f, WHITE);
 
         DrawText(inProgressDialog.c_str(),
                  rect.x + DIALOGBOX_IMAGE_WIDTH + DIALOGBOX_INNER_PADDING * 2,

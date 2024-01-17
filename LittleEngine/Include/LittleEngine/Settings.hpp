@@ -1,23 +1,26 @@
 #pragma once
 
 #include <raylib.h>
+#include <string>
 
 namespace Settings {
 
-extern unsigned int brightColor;
-extern unsigned int darkColor;
 extern KeyboardKey interactionKey;
-extern KeyboardKey moveUpKey;
 extern KeyboardKey moveDownKey;
 extern KeyboardKey moveLeftKey;
 extern KeyboardKey moveRightKey;
+extern KeyboardKey moveUpKey;
+extern std::string defaultDialogImage;
+extern unsigned int brightColor;
+extern unsigned int darkColor;
 
-void setBrightColor(unsigned int color);
-void setDarkColor(unsigned int color);
 void setInteractionKey(KeyboardKey key);
-void setMoveUpKey(KeyboardKey key);
 void setMoveDownKey(KeyboardKey key);
 void setMoveLeftKey(KeyboardKey key);
 void setMoveRightKey(KeyboardKey key);
+void setMoveUpKey(KeyboardKey key);
+void setDefaultDialogImage(std::string image);
+void setBrightColor(unsigned int color);
+void setDarkColor(unsigned int color);
 
 }
