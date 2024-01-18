@@ -3,6 +3,7 @@
 #include <raylib.h>
 #include <string>
 
+KeyboardKey Settings::secondaryInteractionKey = KEY_X;
 KeyboardKey Settings::interactionKey = KEY_ENTER;
 KeyboardKey Settings::moveDownKey = KEY_DOWN;
 KeyboardKey Settings::moveLeftKey = KEY_LEFT;

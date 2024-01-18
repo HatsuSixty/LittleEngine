@@ -165,6 +165,11 @@ int main()
         BeginDrawing();
         ClearBackground(WHITE);
 
+        if (IsKeyPressed(KEY_F1)) {
+            char const* dialogs[] = {"This is a dialog box", "And it works"};
+            dialogBox.start(dialogs, sizeof(dialogs)/sizeof(dialogs[0]), false);
+        }
+
         BeginMode2D(camera);
 
         /* Update objects, tiles, and dialogs */

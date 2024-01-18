@@ -5,6 +5,7 @@
 
 namespace Settings {
 
+extern KeyboardKey secondaryInteractionKey;
 extern KeyboardKey interactionKey;
 extern KeyboardKey moveDownKey;
 extern KeyboardKey moveLeftKey;

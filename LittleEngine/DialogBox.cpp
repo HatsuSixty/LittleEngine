@@ -12,7 +12,8 @@
 #define DIALOGBOX_HEIGHT 80
 #define DIALOGBOX_BORDER_THICKNESS 5
 
-void DialogBox::start(char const* dialogs[], int numDialogs, char const* image)
+void DialogBox::start(char const* dialogs[], int numDialogs, bool skippable,
+                      char const* image)
 {
     if (isInUse)
         return;
@@ -32,6 +33,7 @@ void DialogBox::start(char const* dialogs[], int numDialogs, char const* image)
 
     this->numDialogs = numDialogs;
     this->font = LoadFont(Settings::defaultFont.c_str());
+    this->skippable = skippable;
 }
 
 void DialogBox::update()
@@ -44,6 +46,14 @@ void DialogBox::update()
                 dialogs[currentDialog][currentCharacterInDialog]);
             timeSinceLastChar = 0;
             currentCharacterInDialog += 1;
+        }
+
+        if (IsKeyPressed(Settings::secondaryInteractionKey) && skippable) {
+            for (;
+                 currentCharacterInDialog < (int)strlen(dialogs[currentDialog]);
+                 ++currentCharacterInDialog) {
+                inProgressDialog.push_back(dialogs[currentDialog][currentCharacterInDialog]);
+            }
         }
 
         timeSinceLastChar += GetFrameTime();

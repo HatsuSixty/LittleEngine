@@ -14,6 +14,7 @@ private:
     int numDialogs;
     Texture texture;
     Font font;
+    bool skippable;
 
     std::string inProgressDialog;
     double timeSinceLastChar = 0;
@@ -21,6 +22,6 @@ private:
     int currentCharacterInDialog = 0;
 
 public:
-    void start(char const* dialogs[], int numDialogs, char const* image = NULL);
+    void start(char const* dialogs[], int numDialogs, bool skippable = true, char const* image = NULL);
     void update();
 };
