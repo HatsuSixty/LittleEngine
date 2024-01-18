@@ -5,5 +5,5 @@ executable('Example', [
 ], include_directories : [
   littleengine_include_dir,
 ], link_with : [
-  littleengine,
+  lib_littleengine,
 ])

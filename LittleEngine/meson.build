@@ -1,6 +1,6 @@
 littleengine_include_dir = include_directories('Include')
 
-littleengine = library('LittleEngine', [
+lib_littleengine = library('LittleEngine', [
   'Objects/Object.cpp',
   'Objects/ObjectManager.cpp',
   'Tiles/Tile.cpp',

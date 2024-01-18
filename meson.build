@@ -7,5 +7,5 @@ if not meson.is_subproject()
   subdir('Example')
 endif
 
-littleengine_dep = declare_dependency(include_directories : littleengine_include_dir,
-                                      link_with : littleengine)
+littleengine = declare_dependency(include_directories : littleengine_include_dir,
+                                  link_with : lib_littleengine)
