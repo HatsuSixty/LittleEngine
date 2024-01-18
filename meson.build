@@ -3,4 +3,9 @@ project('LittleEngine', 'cpp',
                            'warning_level=2'])
 
 subdir('LittleEngine')
-subdir('Example')
+if not meson.is_subproject()
+  subdir('Example')
+endif
+
+littleengine_dep = declare_dependency(include_directories : littleengine_include_dir,
+                                      link_with : littleengine)
