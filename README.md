@@ -6,7 +6,7 @@ A simple C++ 2D engine.
 ## How to use
 
 **This engine requires that you use raylib.**  
-Read [`Example`](./Example).
+Read [`Docs.md`](./Docs/Docs.md).
 
 ## Testing
 
