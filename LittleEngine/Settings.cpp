@@ -12,7 +12,7 @@ KeyboardKey Settings::moveUpKey = KEY_UP;
 std::string Settings::defaultDialogImage = "./Assets/default_dialog_image.png";
 unsigned int Settings::brightColor = 0xFFD0EDFF;
 unsigned int Settings::darkColor = 0x140810FF;
-std::string Settings::defaultFont = "./Assets/Retro Gaming.ttf";
+std::string Settings::defaultFont = "";
 
 void Settings::setInteractionKey(KeyboardKey key) { interactionKey = key; }
 void Settings::setMoveDownKey(KeyboardKey key) { moveDownKey = key; }

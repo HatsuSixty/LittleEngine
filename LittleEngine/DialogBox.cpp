@@ -32,7 +32,11 @@ void DialogBox::start(char const* dialogs[], int numDialogs, bool skippable,
     UnloadImage(img);
 
     this->numDialogs = numDialogs;
-    this->font = LoadFont(Settings::defaultFont.c_str());
+    if (Settings::defaultFont == "") {
+        this->font = GetFontDefault();
+    } else {
+        this->font = LoadFont(Settings::defaultFont.c_str());
+    }
     this->skippable = skippable;
 }
 
