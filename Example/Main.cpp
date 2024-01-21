@@ -1,5 +1,6 @@
 // Example on how to use LittleEngine
 
+#include <cstddef>
 #include <iostream>
 #include <raylib.h>
 
@@ -176,8 +177,13 @@ int main()
             char const* dialogs[]
                 = { Translation::getText("This is a dialog box"),
                     Translation::getText("And it works!") };
-            dialogBox.start(dialogs, sizeof(dialogs) / sizeof(dialogs[0]),
-                            false);
+            dialogBox.startEx(dialogs, sizeof(dialogs) / sizeof(dialogs[0]),
+                              false, NULL);
+        }
+        if (IsKeyPressed(KEY_F2)) {
+            char const* dialogs[] = { "Test1", "Test2" };
+            dialogBox.startPro(dialogs, sizeof(dialogs) / sizeof(dialogs[0]),
+                               true, NULL, Vector2 { 2, 2 }, 0);
         }
 
         BeginMode2D(camera);
