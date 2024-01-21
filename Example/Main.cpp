@@ -10,6 +10,7 @@
 #include "LittleEngine/Settings.hpp"
 #include "LittleEngine/Tiles/Tile.hpp"
 #include "LittleEngine/Tiles/Tileset.hpp"
+#include "LittleEngine/Translation.hpp"
 #include "LittleEngine/Util.hpp"
 
 #define PLAYER_WIDTH 40
@@ -33,8 +34,10 @@ public:
     void update(ObjectManager* objmgr) override
     {
         auto direction = Vector2 {
-            .x = (float)(GetKeyStrength(Settings::moveRightKey) - GetKeyStrength(Settings::moveLeftKey)),
-            .y = (float)(GetKeyStrength(Settings::moveDownKey) - GetKeyStrength(Settings::moveUpKey)),
+            .x = (float)(GetKeyStrength(Settings::moveRightKey)
+                         - GetKeyStrength(Settings::moveLeftKey)),
+            .y = (float)(GetKeyStrength(Settings::moveDownKey)
+                         - GetKeyStrength(Settings::moveUpKey)),
         };
 
         move(direction);
@@ -89,8 +92,10 @@ public:
                                player->getActualRectangle())
             && IsKeyPressed(Settings::interactionKey)) {
             char const* dialogs[]
-                = { "the quick brown fox jumps over the lazy\ndog",
-                    "god yzal eht revo spmuj xof nworb kciuq\neht" };
+                = { Translation::getText(
+                        "the quick brown fox jumps over the lazy\ndog"),
+                    Translation::getText(
+                        "god yzal eht revo spmuj xof nworb kciuq\neht") };
             dialogBox->start(dialogs, sizeof(dialogs) / sizeof(dialogs[0]));
         }
         DrawRectangleRec(rec, YELLOW);
@@ -109,8 +114,10 @@ public:
 
 int main()
 {
-    InitWindow(WIDTH, HEIGHT, "Little Escondido");
+    InitWindow(WIDTH, HEIGHT, "LittleEngine Example");
     SetTargetFPS(60);
+
+    Translation::loadTranslation("./Example/TestTranslation.txt");
 
     DialogBox dialogBox;
 
@@ -166,8 +173,11 @@ int main()
         ClearBackground(WHITE);
 
         if (IsKeyPressed(KEY_F1)) {
-            char const* dialogs[] = {"This is a dialog box", "And it works"};
-            dialogBox.start(dialogs, sizeof(dialogs)/sizeof(dialogs[0]), false);
+            char const* dialogs[]
+                = { Translation::getText("This is a dialog box"),
+                    Translation::getText("And it works!") };
+            dialogBox.start(dialogs, sizeof(dialogs) / sizeof(dialogs[0]),
+                            false);
         }
 
         BeginMode2D(camera);

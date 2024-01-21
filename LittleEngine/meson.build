@@ -8,6 +8,7 @@ lib_littleengine = library('LittleEngine', [
   'DialogBox.cpp',
   'Main.cpp',
   'Settings.cpp',
+  'Translation.cpp',
   'Util.cpp',
 ], include_directories : [
   littleengine_include_dir,
