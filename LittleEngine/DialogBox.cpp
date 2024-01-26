@@ -4,8 +4,11 @@
 #include <iostream>
 #include <raylib.h>
 
+#include "AssetManager.hpp"
 #include "LittleEngine/Consts.hpp"
 #include "LittleEngine/Settings.hpp"
+
+extern AssetManager assetManager;
 
 bool isVectorZero(Vector2 a) { return a.x == 0 && a.y == 0; }
 
@@ -25,20 +28,16 @@ void DialogBox::start(char const* dialogs[], int numDialogs, bool skippable,
     this->dialogs = (char const**)malloc(numDialogs * sizeof(char const**));
     std::memcpy(this->dialogs, dialogs, numDialogs * sizeof(char const**));
 
-    Image img;
     if (image != NULL)
-        img = LoadImage(image);
+        this->texture = assetManager.loadTexture(image);
     else
-        img = LoadImage(Settings::defaultDialogImage.c_str());
-    this->texture = LoadTextureFromImage(img);
-    UnloadImage(img);
+        this->texture = assetManager.loadTexture(Settings::defaultDialogImage.c_str());
 
     this->numDialogs = numDialogs;
-    if (Settings::defaultFont == "") {
+    if (Settings::defaultFont == "")
         this->font = GetFontDefault();
-    } else {
-        this->font = LoadFont(Settings::defaultFont.c_str());
-    }
+    else
+        this->font = assetManager.loadFont(Settings::defaultFont.c_str());
     this->skippable = skippable;
 
     this->useCustomTextPosition = false;
@@ -175,8 +174,6 @@ void DialogBox::update()
             currentDialog = 0;
             isInUse = false;
             std::free(this->dialogs);
-            UnloadTexture(this->texture);
-            UnloadFont(this->font);
         }
     }
 }

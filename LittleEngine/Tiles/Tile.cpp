@@ -1,6 +1,10 @@
 #include "LittleEngine/Tiles/Tile.hpp"
 
+#include "AssetManager.hpp"
+
 #include <raylib.h>
+
+extern AssetManager assetManager;
 
 Tile::Tile(Color color, bool collides)
 {
@@ -11,12 +15,8 @@ Tile::Tile(Color color, bool collides)
 
 Tile::Tile(char const* filePath, Vector2 tileCoordinates, bool collides)
 {
-    auto image = LoadImage(filePath);
-    texture = LoadTextureFromImage(image);
-    UnloadImage(image);
-
+    this->texture = assetManager.loadTexture(filePath);
     this->tileCoordinates = tileCoordinates;
-
     this->collides = collides;
     isColor = false;
 }

@@ -5,6 +5,7 @@ lib_littleengine = library('LittleEngine', [
   'Objects/ObjectManager.cpp',
   'Tiles/Tile.cpp',
   'Tiles/Tileset.cpp',
+  'AssetManager.cpp',
   'DialogBox.cpp',
   'Main.cpp',
   'Settings.cpp',
