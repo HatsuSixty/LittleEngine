@@ -29,3 +29,16 @@ Font AssetManager::loadFont(char const* path)
 
     return font;
 }
+
+Sound AssetManager::loadSound(char const* path)
+{
+    auto it = sounds.find(path);
+    if (it != sounds.end()) {
+        return it->second;
+    }
+
+    auto sound = LoadSound(path);
+    sounds[path] = sound;
+
+    return sound;
+}

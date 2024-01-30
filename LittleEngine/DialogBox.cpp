@@ -10,8 +10,6 @@
 
 extern AssetManager assetManager;
 
-bool isVectorZero(Vector2 a) { return a.x == 0 && a.y == 0; }
-
 #define DIALOGBOX_INNER_PADDING 10
 #define DIALOGBOX_PADDING 40
 #define DIALOGBOX_HEIGHT 80
@@ -23,6 +21,10 @@ void DialogBox::start(DialogBoxParameters parameters)
         return;
     m_isInUse = true;
 
+    // DialogBox uses audio
+    if (!IsAudioDeviceReady())
+        InitAudioDevice();
+
     m_dialogs
         = (char const**)malloc(parameters.numDialogs * sizeof(char const**));
     std::memcpy(m_dialogs, parameters.dialogs,
@@ -31,6 +33,14 @@ void DialogBox::start(DialogBoxParameters parameters)
     m_texture = parameters.image == NULL
         ? assetManager.loadTexture(Settings::defaultDialogImage.c_str())
         : assetManager.loadTexture(parameters.image);
+
+    m_useSound = false;
+    if (parameters.useSound) {
+        m_useSound = true;
+        m_sound = parameters.sound == NULL
+            ? assetManager.loadSound(Settings::defaultDialogSound.c_str())
+            : assetManager.loadSound(parameters.sound);
+    }
 
     m_numDialogs = parameters.numDialogs;
 
@@ -54,6 +64,8 @@ void DialogBox::update()
              || m_currentCharacterInDialog == 0)
             && (m_currentCharacterInDialog
                 != (int)(strlen(m_dialogs[m_currentDialog])))) {
+            if (m_useSound)
+                PlaySound(m_sound);
             m_inProgressDialog.push_back(
                 m_dialogs[m_currentDialog][m_currentCharacterInDialog]);
             m_timeSinceLastChar = 0;

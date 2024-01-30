@@ -14,6 +14,8 @@ struct DialogBoxParameters {
     // Not mandatory
     bool skippable = true;
     char const* image = NULL;
+    bool useSound = true;
+    char const* sound = NULL;
     bool useCustomTextPosition = false;
     Vector2 textPosition;
     double speed = 0;
@@ -27,6 +29,8 @@ private:
     int m_numDialogs;
     Texture m_texture;
     Font m_font;
+    bool m_useSound;
+    Sound m_sound;
     bool m_skippable;
     Vector2 m_textPosition;
     bool m_useCustomTextPosition;

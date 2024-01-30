@@ -191,6 +191,7 @@ int main()
             dialogBox.start(DialogBoxParameters {
                 .dialogs = dialogs,
                 .numDialogs = sizeof(dialogs) / sizeof(dialogs[0]),
+                .useSound = false,
                 .useCustomTextPosition = true,
                 .textPosition = Vector2 { 0, 0 },
             });

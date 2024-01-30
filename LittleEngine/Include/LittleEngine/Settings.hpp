@@ -12,6 +12,7 @@ extern KeyboardKey moveLeftKey;
 extern KeyboardKey moveRightKey;
 extern KeyboardKey moveUpKey;
 extern std::string defaultDialogImage;
+extern std::string defaultDialogSound;
 extern unsigned int brightColor;
 extern unsigned int darkColor;
 extern std::string defaultFont;

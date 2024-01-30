@@ -10,6 +10,7 @@ KeyboardKey Settings::moveLeftKey = KEY_LEFT;
 KeyboardKey Settings::moveRightKey = KEY_RIGHT;
 KeyboardKey Settings::moveUpKey = KEY_UP;
 std::string Settings::defaultDialogImage = "./Assets/default_dialog_image.png";
+std::string Settings::defaultDialogSound = "./Assets/default_dialog_sound.wav";
 unsigned int Settings::brightColor = 0xFFD0EDFF;
 unsigned int Settings::darkColor = 0x140810FF;
 std::string Settings::defaultFont = "";
