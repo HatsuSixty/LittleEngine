@@ -17,93 +17,70 @@ bool isVectorZero(Vector2 a) { return a.x == 0 && a.y == 0; }
 #define DIALOGBOX_HEIGHT 80
 #define DIALOGBOX_BORDER_THICKNESS 5
 
-void DialogBox::start(char const* dialogs[], int numDialogs, bool skippable,
-                      char const* image, Vector2 textPosition, double speed)
+void DialogBox::start(DialogBoxParameters parameters)
 {
-    if (isInUse)
+    if (m_isInUse)
         return;
+    m_isInUse = true;
 
-    isInUse = true;
+    m_dialogs
+        = (char const**)malloc(parameters.numDialogs * sizeof(char const**));
+    std::memcpy(m_dialogs, parameters.dialogs,
+                parameters.numDialogs * sizeof(char const**));
 
-    this->dialogs = (char const**)malloc(numDialogs * sizeof(char const**));
-    std::memcpy(this->dialogs, dialogs, numDialogs * sizeof(char const**));
+    m_texture = parameters.image == NULL
+        ? assetManager.loadTexture(Settings::defaultDialogImage.c_str())
+        : assetManager.loadTexture(parameters.image);
 
-    if (image != NULL)
-        this->texture = assetManager.loadTexture(image);
-    else
-        this->texture = assetManager.loadTexture(Settings::defaultDialogImage.c_str());
+    m_numDialogs = parameters.numDialogs;
 
-    this->numDialogs = numDialogs;
-    if (Settings::defaultFont == "")
-        this->font = GetFontDefault();
-    else
-        this->font = assetManager.loadFont(Settings::defaultFont.c_str());
-    this->skippable = skippable;
+    m_font = Settings::defaultFont == ""
+        ? GetFontDefault()
+        : assetManager.loadFont(Settings::defaultFont.c_str());
 
-    this->useCustomTextPosition = false;
-    if (!isVectorZero(textPosition)) {
-        this->textPosition = textPosition;
-        this->useCustomTextPosition = true;
-    }
+    m_skippable = parameters.skippable;
 
-    if (speed != 0)
-        this->textSpeed = speed;
-    else
-        this->textSpeed = 0.05;
-}
+    m_useCustomTextPosition = parameters.useCustomTextPosition;
+    m_textPosition = parameters.textPosition;
 
-void DialogBox::start(char const* dialogs[], int numDialogs)
-{
-    start(dialogs, numDialogs, true, NULL, Vector2 { 0, 0 }, 0);
-}
-
-void DialogBox::startEx(char const* dialogs[], int numDialogs, bool skippable,
-                        char const* image)
-{
-    start(dialogs, numDialogs, skippable, image, Vector2 { 0, 0 }, 0);
-}
-
-void DialogBox::startPro(char const* dialogs[], int numDialogs, bool skippable,
-                         char const* image, Vector2 textPosition, double speed)
-{
-    start(dialogs, numDialogs, skippable, image, textPosition, speed);
+    m_textSpeed = parameters.speed == 0 ? 0.05 : parameters.speed;
 }
 
 void DialogBox::update()
 {
-    if (isInUse) {
+    if (m_isInUse) {
         // Update current text if enough time has passed
-        if ((timeSinceLastChar >= this->textSpeed
-             || currentCharacterInDialog == 0)
-            && (currentCharacterInDialog
-                != (int)(strlen(dialogs[currentDialog])))) {
-            inProgressDialog.push_back(
-                dialogs[currentDialog][currentCharacterInDialog]);
-            timeSinceLastChar = 0;
-            currentCharacterInDialog += 1;
+        if ((m_timeSinceLastChar >= m_textSpeed
+             || m_currentCharacterInDialog == 0)
+            && (m_currentCharacterInDialog
+                != (int)(strlen(m_dialogs[m_currentDialog])))) {
+            m_inProgressDialog.push_back(
+                m_dialogs[m_currentDialog][m_currentCharacterInDialog]);
+            m_timeSinceLastChar = 0;
+            m_currentCharacterInDialog += 1;
         }
 
         // Skip dialog if the player presses the secondary interaction key
-        if (IsKeyPressed(Settings::secondaryInteractionKey) && skippable) {
-            for (;
-                 currentCharacterInDialog < (int)strlen(dialogs[currentDialog]);
-                 ++currentCharacterInDialog) {
-                inProgressDialog.push_back(
-                    dialogs[currentDialog][currentCharacterInDialog]);
+        if (IsKeyPressed(Settings::secondaryInteractionKey) && m_skippable) {
+            for (; m_currentCharacterInDialog
+                 < (int)strlen(m_dialogs[m_currentDialog]);
+                 ++m_currentCharacterInDialog) {
+                m_inProgressDialog.push_back(
+                    m_dialogs[m_currentDialog][m_currentCharacterInDialog]);
             }
         }
 
         // Update the elapsed amount of time since the last character
         // was added to the current text
-        timeSinceLastChar += GetFrameTime();
+        m_timeSinceLastChar += GetFrameTime();
 
         // Define textPos for later usage
         // In case textPosition is uninitialized, the useCustomTextPosition
         // variable should be set to false and textPos should be properly
         // updated
-        Vector2 textPos = textPosition;
+        Vector2 textPos = m_textPosition;
 
-        if (!useCustomTextPosition) {
+        if (!m_useCustomTextPosition) {
             /// Begin drawing borders ///
             auto rect = Rectangle {
                 .x = DIALOGBOX_PADDING,
@@ -136,12 +113,12 @@ void DialogBox::update()
 
             /// Begin drawing image ///
             DrawTexturePro(
-                texture,
+                m_texture,
                 Rectangle {
                     .x = 0,
                     .y = 0,
-                    .width = (float)texture.width,
-                    .height = (float)texture.height,
+                    .width = (float)m_texture.width,
+                    .height = (float)m_texture.height,
                 },
                 Rectangle {
                     .x = rect.x + DIALOGBOX_INNER_PADDING,
@@ -156,24 +133,25 @@ void DialogBox::update()
 
         /// Begin drawing text ///
         auto fontSize = 20.0f;
-        DrawTextEx(font, inProgressDialog.c_str(), textPos, fontSize,
+        DrawTextEx(m_font, m_inProgressDialog.c_str(), textPos, fontSize,
                    fontSize / 10, GetColor(Settings::brightColor));
         /// End drawing text ///
 
         // Go to next dialog if we finished the current one and the player
         // pressed the interaction key
-        if (currentCharacterInDialog >= (int)strlen(dialogs[currentDialog])
+        if (m_currentCharacterInDialog
+                >= (int)strlen(m_dialogs[m_currentDialog])
             && IsKeyPressed(Settings::interactionKey)) {
-            currentDialog += 1;
-            currentCharacterInDialog = 0;
-            inProgressDialog.clear();
+            m_currentDialog += 1;
+            m_currentCharacterInDialog = 0;
+            m_inProgressDialog.clear();
         }
 
         // If we finished displaying all the dialogs, cleanup
-        if (currentDialog >= numDialogs) {
-            currentDialog = 0;
-            isInUse = false;
-            std::free(this->dialogs);
+        if (m_currentDialog >= m_numDialogs) {
+            m_currentDialog = 0;
+            m_isInUse = false;
+            std::free(m_dialogs);
         }
     }
 }
