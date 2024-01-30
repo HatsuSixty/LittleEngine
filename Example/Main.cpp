@@ -19,12 +19,12 @@
 #define PLAYER_SPEED 200.0f
 class Player : public Object {
 private:
-    Rectangle rec;
+    Rectangle m_rec;
 
 public:
     Player(Vector2 position)
     {
-        rec = Rectangle {
+        m_rec = Rectangle {
             .x = position.x,
             .y = position.y,
             .width = PLAYER_WIDTH,
@@ -47,73 +47,73 @@ public:
             move(Vector2 { .x = -direction.x, .y = -direction.y });
         }
 
-        DrawRectangleRec(rec, RED);
+        DrawRectangleRec(m_rec, RED);
     }
 
     Rectangle getCollisionRectangle() override
     {
-        Rectangle coll = rec;
+        Rectangle coll = m_rec;
         coll.y += coll.height / 2;
         coll.height /= 2;
         return coll;
     }
 
-    Rectangle getActualRectangle() override { return rec; }
+    Rectangle getActualRectangle() override { return m_rec; }
 
     void move(Vector2 direction)
     {
-        rec.x += direction.x * PLAYER_SPEED * GetFrameTime();
-        rec.y += direction.y * PLAYER_SPEED * GetFrameTime();
+        m_rec.x += direction.x * PLAYER_SPEED * GetFrameTime();
+        m_rec.y += direction.y * PLAYER_SPEED * GetFrameTime();
     }
 };
 
 class Box : public Object {
 private:
-    Rectangle rec;
-    Player* player;
-    DialogBox* dialogBox;
+    Rectangle m_rec;
+    Player* m_player;
+    DialogBox* m_dialogBox;
 
 public:
     Box(Vector2 position, Player* player, DialogBox* dialogBox)
     {
-        rec = Rectangle {
+        m_rec = Rectangle {
             .x = position.x,
             .y = position.y,
             .width = 40,
             .height = 40,
         };
-        this->player = player;
-        this->dialogBox = dialogBox;
+        m_player = player;
+        m_dialogBox = dialogBox;
     }
 
     void update(ObjectManager* objmgr) override
     {
         (void)objmgr;
         if (CheckCollisionRecs(getActualRectangle(),
-                               player->getActualRectangle())
+                               m_player->getActualRectangle())
             && IsKeyPressed(Settings::interactionKey)) {
             char const* dialogs[]
                 = { Translation::getText(
                         "the quick brown fox jumps over the lazy\ndog"),
                     Translation::getText(
                         "god yzal eht revo spmuj xof nworb kciuq\neht") };
-            dialogBox->start(DialogBoxParameters {
+            m_dialogBox->start(DialogBoxParameters {
                 .dialogs = dialogs,
                 .numDialogs = sizeof(dialogs) / sizeof(dialogs[0]),
             });
         }
-        DrawRectangleRec(rec, YELLOW);
+        DrawRectangleRec(m_rec, YELLOW);
     }
 
     Rectangle getCollisionRectangle() override
     {
-        Rectangle coll = rec;
+        Rectangle coll = m_rec;
         coll.y += coll.height / 2;
         coll.height /= 2;
         return coll;
     }
 
-    Rectangle getActualRectangle() override { return rec; }
+    Rectangle getActualRectangle() override { return m_rec; }
 };
 
 int main()

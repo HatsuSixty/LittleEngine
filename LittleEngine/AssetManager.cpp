@@ -4,8 +4,8 @@
 
 Texture AssetManager::loadTexture(char const* path)
 {
-    auto it = textures.find(path);
-    if (it != textures.end()) {
+    auto it = m_textures.find(path);
+    if (it != m_textures.end()) {
         return it->second;
     }
 
@@ -13,32 +13,32 @@ Texture AssetManager::loadTexture(char const* path)
     auto txt = LoadTextureFromImage(img);
     UnloadImage(img);
 
-    textures[path] = txt;
+    m_textures[path] = txt;
     return txt;
 }
 
 Font AssetManager::loadFont(char const* path)
 {
-    auto it = fonts.find(path);
-    if (it != fonts.end()) {
+    auto it = m_fonts.find(path);
+    if (it != m_fonts.end()) {
         return it->second;
     }
 
     auto font = LoadFont(path);
-    fonts[path] = font;
+    m_fonts[path] = font;
 
     return font;
 }
 
 Sound AssetManager::loadSound(char const* path)
 {
-    auto it = sounds.find(path);
-    if (it != sounds.end()) {
+    auto it = m_sounds.find(path);
+    if (it != m_sounds.end()) {
         return it->second;
     }
 
     auto sound = LoadSound(path);
-    sounds[path] = sound;
+    m_sounds[path] = sound;
 
     return sound;
 }

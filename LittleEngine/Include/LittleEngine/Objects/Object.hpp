@@ -6,7 +6,8 @@ class ObjectManager;
 
 class Object {
 private:
-    int id;
+    int m_id;
+
 public:
     Object();
     int getId();

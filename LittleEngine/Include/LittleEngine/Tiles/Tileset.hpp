@@ -5,9 +5,9 @@
 
 class Tileset {
 private:
-    Tile* tiles;
-    int width;
-    int height;
+    Tile* m_tiles;
+    int m_width;
+    int m_height;
 
 public:
     Tileset(Tile* tiles, int count, int width, int height);

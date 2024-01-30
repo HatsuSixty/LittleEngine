@@ -8,8 +8,8 @@
 
 class ObjectManager {
 private:
-    std::vector<Object*> objects;
-    Tileset* tileset;
+    std::vector<Object*> m_objects;
+    Tileset* m_tileset;
 
 public:
     ObjectManager(Tileset* tileset);

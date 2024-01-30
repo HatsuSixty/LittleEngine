@@ -6,13 +6,13 @@ extern int objectIdTracker;
 
 Object::Object()
 {
-    id = objectIdTracker;
+    m_id = objectIdTracker;
     objectIdTracker += 1;
 }
 
 int Object::getId()
 {
-    return id;
+    return m_id;
 }
 
 void Object::printId(const char* file_name, int line)

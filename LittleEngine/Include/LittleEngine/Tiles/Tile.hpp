@@ -11,13 +11,13 @@
 
 class Tile {
 private:
-    Texture texture;
-    Vector2 tileCoordinates;
+    Texture m_texture;
+    Vector2 m_tileCoordinates;
 
-    bool isColor;
-    Color tileColor;
+    bool m_isColor;
+    Color m_tileColor;
 public:
-    bool collides;
+    bool m_collides;
 
     Tile(Color color, bool collides);
     Tile(char const* filePath, Vector2 tileCoordinates, bool collides);
