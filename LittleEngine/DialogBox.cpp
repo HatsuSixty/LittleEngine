@@ -4,11 +4,9 @@
 #include <iostream>
 #include <raylib.h>
 
-#include "AssetManager.hpp"
+#include "LittleEngine/AssetManager.hpp"
 #include "LittleEngine/Consts.hpp"
 #include "LittleEngine/Settings.hpp"
-
-extern AssetManager assetManager;
 
 #define DIALOGBOX_INNER_PADDING 10
 #define DIALOGBOX_PADDING 40

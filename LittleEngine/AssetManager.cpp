@@ -1,4 +1,4 @@
-#include "AssetManager.hpp"
+#include "LittleEngine/AssetManager.hpp"
 
 #include <raylib.h>
 
@@ -41,4 +41,32 @@ Sound AssetManager::loadSound(char const* path)
     m_sounds[path] = sound;
 
     return sound;
+}
+
+Music AssetManager::loadMusic(char const* path)
+{
+    auto it = m_musics.find(path);
+    if (it != m_musics.end()) {
+        return it->second;
+    }
+
+    auto music = LoadMusicStream(path);
+    m_musics[path] = music;
+
+    return music;
+}
+
+Shader AssetManager::loadShader(char const* vsPath, char const* fsPath)
+{
+    auto key = ShaderKey { vsPath, fsPath };
+
+    auto it = m_shaders.find(key);
+    if (it != m_shaders.end()) {
+        return it->second;
+    }
+
+    auto shader = LoadShader(vsPath, fsPath);
+    m_shaders[key] = shader;
+
+    return shader;
 }
