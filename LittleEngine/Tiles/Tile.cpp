@@ -31,8 +31,8 @@ void Tile::render(int x, int y)
     } else {
         DrawTexturePro(m_texture,
                        Rectangle {
-                           .x = (float)m_tileCoordinates.x*TILE_WIDTH,
-                           .y = (float)m_tileCoordinates.y*TILE_HEIGHT,
+                           .x = (float)m_tileCoordinates.x * TILE_WIDTH,
+                           .y = (float)m_tileCoordinates.y * TILE_HEIGHT,
                            .width = (float)TILE_WIDTH,
                            .height = (float)TILE_HEIGHT,
                        },

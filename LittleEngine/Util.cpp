@@ -2,8 +2,8 @@
 
 #include <raylib.h>
 
-#include "LittleEngine/Tiles/Tileset.hpp"
 #include "LittleEngine/Objects/Object.hpp"
+#include "LittleEngine/Tiles/Tileset.hpp"
 
 int GetKeyStrength(int key)
 {

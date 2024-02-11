@@ -22,7 +22,7 @@ void ObjectManager::update()
     }
 
     for (auto o : updateStack) {
-        o->update(this);
+        o->updateImpl(this);
     }
 }
 
@@ -35,6 +35,16 @@ bool ObjectManager::collides(Object* obj)
              && CheckCollisionRecs(obj->getCollisionRectangle(),
                                    o->getCollisionRectangle()))
             || m_tileset->collides(obj))
+            return true;
+    }
+    return false;
+}
+
+bool ObjectManager::pointCollides(Vector2 position)
+{
+    for (auto o : m_objects) {
+        if ((CheckCollisionPointRec(position, o->getCollisionRectangle()))
+            || m_tileset->pointCollides(position))
             return true;
     }
     return false;

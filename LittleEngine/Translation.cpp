@@ -48,8 +48,9 @@ void Translation::loadTranslation(char const* path)
         if (keyValue.size() != 2) {
             std::cerr << path << ":" << linum
                       << ": WARNING: invalid syntax. Ignoring...\n";
-            std::cerr << path << ":" << linum
-                      << ": NOTE: translations must be in the format `hello=olá=`\n";
+            std::cerr
+                << path << ":" << linum
+                << ": NOTE: translations must be in the format `hello=olá=`\n";
         } else {
             replaceAll(keyValue[0], "\\n", "\n");
             replaceAll(keyValue[1], "\\n", "\n");

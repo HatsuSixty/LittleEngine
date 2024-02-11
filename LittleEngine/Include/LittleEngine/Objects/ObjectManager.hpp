@@ -16,5 +16,6 @@ public:
 
     void addObject(Object* obj);
     bool collides(Object* obj);
+    bool pointCollides(Vector2 position);
     void update();
 };

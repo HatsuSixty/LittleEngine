@@ -63,3 +63,27 @@ bool Tileset::collides(Object* obj)
     }
     return false;
 }
+
+bool Tileset::pointCollides(Vector2 point)
+{
+    for (auto x = 0; x < m_width; ++x) {
+        for (auto y = 0; y < m_height; ++y) {
+            if (!m_tiles[y * m_width + x].m_collides)
+                continue;
+            Rectangle rec = {
+                .x = x * TILE_WIDTH,
+                .y = y * TILE_HEIGHT,
+                .width = TILE_WIDTH,
+                .height = TILE_HEIGHT,
+            };
+            if (CheckCollisionPointRec(point, rec))
+                return true;
+
+            auto tilesetDims = getDimensions();
+            if ((point.x > tilesetDims.x) || (point.y > tilesetDims.y)
+                || (point.x < 0) || (point.y < 0))
+                return true;
+        }
+    }
+    return false;
+}

@@ -16,4 +16,5 @@ public:
     void update();
     Vector2 getDimensions();
     bool collides(Object* obj);
+    bool pointCollides(Vector2 point);
 };

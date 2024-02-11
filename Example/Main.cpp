@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <iostream>
 #include <raylib.h>
+#include <raymath.h>
 
 #include "LittleEngine/Consts.hpp"
 #include "LittleEngine/DialogBox.hpp"
@@ -20,6 +21,12 @@
 class Player : public Object {
 private:
     Rectangle m_rec;
+
+    void move(Vector2 direction)
+    {
+        m_rec.x += direction.x * PLAYER_SPEED * GetFrameTime();
+        m_rec.y += direction.y * PLAYER_SPEED * GetFrameTime();
+    }
 
 public:
     Player(Vector2 position)
@@ -60,10 +67,10 @@ public:
 
     Rectangle getActualRectangle() override { return m_rec; }
 
-    void move(Vector2 direction)
+    void setPosition(Vector2 position) override
     {
-        m_rec.x += direction.x * PLAYER_SPEED * GetFrameTime();
-        m_rec.y += direction.y * PLAYER_SPEED * GetFrameTime();
+        m_rec.x = position.x;
+        m_rec.y = position.y;
     }
 };
 
@@ -114,6 +121,12 @@ public:
     }
 
     Rectangle getActualRectangle() override { return m_rec; }
+
+    void setPosition(Vector2 position) override
+    {
+        m_rec.x = position.x;
+        m_rec.y = position.y;
+    }
 };
 
 int main()
@@ -195,6 +208,11 @@ int main()
                 .useCustomTextPosition = true,
                 .textPosition = Vector2 { 0, 0 },
             });
+        }
+        if (IsKeyPressed(KEY_F3)) {
+            auto playerPos = Vector2 { player.getActualRectangle().x,
+                                       player.getActualRectangle().y };
+            player.moveTo(Vector2AddValue(playerPos, 10), 1.0f);
         }
 
         BeginMode2D(camera);
